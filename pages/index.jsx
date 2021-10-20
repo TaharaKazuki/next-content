@@ -1,5 +1,7 @@
 import React from 'react'
-import Navbar from 'components/Navbar'
+
+import Layout from 'components/Layout'
+
 import ResourceHighlight from 'components/ResourceHighlight'
 import Newsletter from 'components/Newsletter'
 import ResorceList from 'components/ResourceList'
@@ -7,13 +9,12 @@ import Footer from 'components/Footer'
 
 const Home = () => {
   return (
-    <>
-      <Navbar />
+    <Layout>
       <ResourceHighlight />
       <Newsletter />
       <ResorceList />
       <Footer />
-    </>
+    </Layout>
   )
 }
 
