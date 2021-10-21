@@ -12,10 +12,9 @@ import { resources } from 'api/data'
 const Home = () => {
   return (
     <Layout>
-      <ResourceHighlight />
+      <ResourceHighlight resources={resources} />
       <Newsletter />
-      <ResorceList />
-      {JSON.stringify(resources)}
+      <ResorceList resources={resources} />
       <Footer />
     </Layout>
   )
