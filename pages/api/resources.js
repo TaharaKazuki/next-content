@@ -1,7 +1,5 @@
-import data from './data.json'
-
-const resources = (req, res) => {
-  res.send(data)
+const resources = (_req, res) => {
+  res.send('work in progress')
 }
 
 export default resources
