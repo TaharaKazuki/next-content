@@ -13,7 +13,7 @@ const ResourceCreate = () => {
   const [form, setForm] = useState(DEFAULT_DATA)
 
   const submitForm = () => {
-    fetch('/api/resourse', {
+    fetch('/api/resources', {
       body: JSON.stringify(form),
       headers: { 'Content-Type': 'application/json' },
       method: 'POST'
