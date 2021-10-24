@@ -1,5 +1,7 @@
-const resources = (_req, res) => {
-  res.send('work in progress')
+const resources = async (_req, res) => {
+  const dataRes = await fetch('http://localhost:3001/api/resources')
+  const data = await dataRes.json()
+  res.send(data)
 }
 
 export default resources
