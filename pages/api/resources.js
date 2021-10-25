@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 const resources = async (req, res) => {
   if (req.method === 'GET') {
     const dataRes = await fetch('http://localhost:3001/api/resources')
@@ -10,6 +12,8 @@ const resources = async (req, res) => {
     if (!title || !description || !link || !timeToFinish) {
       return res.status(422).send('Data missing')
     }
+
+    axios.post('http://localhost:3001/api/resources', req.body)
     return res.send('DATA has been received')
   }
 }
