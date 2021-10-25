@@ -14,7 +14,6 @@ const resources = async (req, res) => {
     }
 
     axios.post('http://localhost:3001/api/resources', req.body)
-    return res.send('DATA has been received')
   }
 }
 
