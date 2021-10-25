@@ -12,8 +12,15 @@ const resources = async (req, res) => {
     if (!title || !description || !link || !timeToFinish) {
       return res.status(422).send('Data missing')
     }
-
-    axios.post('http://localhost:3001/api/resources', req.body)
+    try {
+      const axiosRes = await axios.post(
+        'http://localhost:3001/api/resources',
+        req.body
+      )
+      return res.send(axiosRes.data)
+    } catch {
+      return status(422).send('Data cannot be stored')
+    }
   }
 }
 
