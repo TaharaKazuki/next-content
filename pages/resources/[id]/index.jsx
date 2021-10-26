@@ -1,13 +1,8 @@
 import React from 'react'
 import Layout from 'components/Layout'
-import { useRouter } from 'next/router'
+import Link from 'next/link'
 
 const ResourceDetail = ({ resource }) => {
-  const router = useRouter()
-  // if (router.isFallback) {
-  //   return <div>Loading Data</div>
-  // }
-
   return (
     <Layout>
       <section className="hero">
@@ -19,6 +14,9 @@ const ResourceDetail = ({ resource }) => {
                   <h2 className="subtitle is-4">{resource.createdAt}</h2>
                   <h1 className="title">{resource.title}</h1>
                   <p>{resource.description}</p>
+                  <Link href={`/resources/${resource.id}/edit`}>
+                    <a className="button is-warning">update</a>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -28,19 +26,8 @@ const ResourceDetail = ({ resource }) => {
     </Layout>
   )
 }
-export async function getStaticPaths() {
-  const resData = await fetch('http://localhost:3001/api/resources')
-  const data = await resData.json()
-  const paths = data.map((resource) => {
-    return { params: { id: resource.id } }
-  })
-  return {
-    paths,
-    fallback: false // ture
-  }
-}
 
-export async function getStaticProps({ params }) {
+export async function getServerSideProps({ params }) {
   const dataRes = await fetch(
     `http://localhost:3001/api/resources/${params.id}`
   )
@@ -49,8 +36,7 @@ export async function getStaticProps({ params }) {
   return {
     props: {
       resource: data
-    },
-    revalidate: 1
+    }
   }
 }
 
