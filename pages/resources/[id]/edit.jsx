@@ -1,10 +1,15 @@
 import React from 'react'
 import Layout from 'components/Layout'
 import ResourceForm from 'components/ResourceForm'
+import axios from 'axios'
 
 const ResourceEdit = ({ resource }) => {
-  const updateResorce = (formData) => {
-    alert(JSON.stringify(formData))
+  const updateResource = (formData) => {
+    console.info('通過 updata')
+    axios
+      .patch('/api/resources', formData)
+      .then((_) => alert('Data has been Updated!'))
+      .catch((err) => alert(err?.response?.data))
   }
 
   return (
@@ -12,7 +17,10 @@ const ResourceEdit = ({ resource }) => {
       <div className="container">
         <div className="colums">
           <div className="colum is-8 is-offset-2">
-            <ResourceForm initialData={resource} onFormSubmit={updateResorce} />
+            <ResourceForm
+              initialData={resource}
+              onFormSubmit={updateResource}
+            />
           </div>
         </div>
       </div>

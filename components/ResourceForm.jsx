@@ -22,6 +22,7 @@ const ResourceForm = ({ onFormSubmit, initialData }) => {
   }
 
   const submitForm = () => {
+    console.info('submit')
     onFormSubmit(form)
   }
 
