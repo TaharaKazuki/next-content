@@ -1,7 +1,13 @@
 import React from 'react'
 import Layout from 'components/Layout'
+import { useRouter } from 'next/router'
 
 const ResourceDetail = ({ resource }) => {
+  const router = useRouter()
+  // if (router.isFallback) {
+  //   return <div>Loading Data</div>
+  // }
+
   return (
     <Layout>
       <section className="hero">
@@ -30,7 +36,7 @@ export async function getStaticPaths() {
   })
   return {
     paths,
-    fallback: false
+    fallback: false // ture
   }
 }
 
@@ -43,7 +49,8 @@ export async function getStaticProps({ params }) {
   return {
     props: {
       resource: data
-    }
+    },
+    revalidate: 1
   }
 }
 
