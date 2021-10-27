@@ -5,7 +5,6 @@ import axios from 'axios'
 
 const ResourceEdit = ({ resource }) => {
   const updateResource = (formData) => {
-    console.info('通過 updata')
     axios
       .patch('/api/resources', formData)
       .then((_) => alert('Data has been Updated!'))
