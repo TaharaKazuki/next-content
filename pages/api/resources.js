@@ -21,8 +21,8 @@ const resources = async (req, res) => {
     try {
       const axiosRes = await axios[req.method.toLowerCase()](url, req.body)
       return res.send(axiosRes.data)
-    } catch {
-      return res.status(422).send('Data cannot be stored')
+    } catch (e) {
+      return res.status(422).send(`Data cannot be stored${e}`)
     }
   }
 }
