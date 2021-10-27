@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from 'next/link'
 
 const ResourceList = ({ resources }) => {
   const renderResources = () =>
@@ -8,6 +9,9 @@ const ResourceList = ({ resources }) => {
           <h2 className="subtitle is-5 has-text-grey">{resource.createdAt}</h2>
           <h1 className="title has-text-black is-3">{resource.title}</h1>
           <p className="has-text-dark">{resource.description}</p>
+          <Link href={`/resources/${resource.id}`}>
+            <a className="button is-link">Details</a>
+          </Link>
         </div>
       </div>
     ))
