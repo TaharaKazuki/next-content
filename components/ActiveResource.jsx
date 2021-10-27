@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import axios from 'axios'
+import moment from 'moment'
 
 const ActiveResource = () => {
   const [resource, setResource] = useState({})
@@ -9,6 +10,16 @@ const ActiveResource = () => {
     const fetchResouce = async () => {
       const axiosRes = await axios.get('/api/activeResource')
       const resource = axiosRes.data
+      const timeToFinish = parseInt(resource.timeToFinish, 10)
+      const elapsedTime = moment().diff(
+        moment(resource.activationTime),
+        'seconds'
+      )
+      const updateTimeToFinish = timeToFinish * 60 - elapsedTime
+
+      if (updateTimeToFinish >= 0) {
+        resource.timeToFinish = updateTimeToFinish
+      }
       setResource(resource)
     }
 
