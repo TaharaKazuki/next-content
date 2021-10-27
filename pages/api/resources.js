@@ -22,7 +22,7 @@ const resources = async (req, res) => {
       const axiosRes = await axios[req.method.toLowerCase()](url, req.body)
       return res.send(axiosRes.data)
     } catch (e) {
-      return res.status(422).send(`Data cannot be stored${e}`)
+      return res.status(422).send(`Data cannot be stored:${e}`)
     }
   }
 }
