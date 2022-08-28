@@ -8,13 +8,13 @@ import { getAuth } from 'firebase/auth'
  * https://nextjs.org/docs/basic-features/environment-variables
  */
 const firebaseConfig = {
-  apiKey: process.env.NEXT_APP_FIREBASE_APIKEY,
-  authDomain: process.env.NEXT_APP_FIREBASE_DOMAIN,
-  projectId: process.env.NEXT_APP_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.NEXT_APP_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.NEXT_APP_FIREBASE_SENDER_ID,
-  appId: process.env.NEXT_APP_FIREBASE_APP_ID,
-  measurementId: process.env.NEXT_APP_FIREBASE_MEASUREMENT_ID,
+  apiKey: process.env.NEXT_PUBLIC_APP_FIREBASE_APIKEY,
+  authDomain: process.env.NEXT_PUBLIC_APP_FIREBASE_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_APP_FIREBASE_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_APP_FIREBASE_APP_ID,
+  measurementId: process.env.NEXT_PUBLIC_APP_FIREBASE_MEASUREMENT_ID,
 }
 
 if (!getApps().length) {
