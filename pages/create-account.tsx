@@ -1,15 +1,15 @@
 import React from 'react'
 import { Button } from '@/components/button'
+import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 import classNames from 'classnames'
-
-type User = {
-  name: string
-  nickName: string
-  profile: string
-}
+import { User } from 'types/user'
+import { useAuth } from 'context/auth'
 
 const CreateAccount = () => {
+  const { isLoading, isLoggedIn } = useAuth()
+  const router = useRouter()
+
   const {
     register,
     handleSubmit,
@@ -19,6 +19,15 @@ const CreateAccount = () => {
 
   const submit = (data: User) => {
     console.info(data)
+  }
+
+  if (isLoading) {
+    return true
+  }
+
+  if (!isLoggedIn) {
+    router.push('/login')
+    return null
   }
 
   return (
