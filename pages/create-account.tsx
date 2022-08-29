@@ -22,7 +22,7 @@ const CreateAccount = () => {
   }
 
   if (isLoading) {
-    return true
+    return null
   }
 
   if (!isLoggedIn) {
