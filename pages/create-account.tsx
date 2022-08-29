@@ -1,6 +1,7 @@
 import React from 'react'
 import { Button } from '@/components/button'
 import { useForm } from 'react-hook-form'
+import classNames from 'classnames'
 
 type User = {
   name: string
@@ -13,6 +14,7 @@ const CreateAccount = () => {
     register,
     handleSubmit,
     formState: { errors },
+    watch,
   } = useForm<User>()
 
   const submit = (data: User) => {
@@ -26,10 +28,14 @@ const CreateAccount = () => {
       <form onSubmit={handleSubmit(submit)} className="space-y-6">
         <div>
           <label className="block mb-0.5" htmlFor="name">
-            名前
+            名前*
           </label>
           <input
-            className="rounded border border-slate-300"
+            autoComplete="name"
+            className={classNames(
+              'rounded border',
+              errors.name ? 'border-red-500' : 'border-slate-300'
+            )}
             {...register('name', {
               required: '必須入力です',
               maxLength: {
@@ -46,10 +52,14 @@ const CreateAccount = () => {
 
         <div>
           <label className="block mb-0.5" htmlFor="nickName">
-            ニックネーム
+            ニックネーム*
           </label>
           <input
-            className="rounded border border-slate-300"
+            autoComplete="off"
+            className={classNames(
+              'rounded border',
+              errors.nickName ? 'border-red-500' : 'border-slate-300'
+            )}
             {...register('nickName', {
               required: '必須入力です',
               maxLength: { value: 50, message: '最大50文字です' },
@@ -63,10 +73,13 @@ const CreateAccount = () => {
 
         <div>
           <label className="block mb-0.5" htmlFor="profile">
-            プロフィール
+            プロフィール*
           </label>
           <textarea
-            className="rounded border border-slate-300"
+            className={classNames(
+              'rounded border',
+              errors.profile ? 'border-red-500' : 'border-slate-300'
+            )}
             {...register('profile', {
               required: '必須入力です',
               maxLength: { value: 255, message: '最大255文字です' },
@@ -74,6 +87,7 @@ const CreateAccount = () => {
             id="profile"
             name="profile"
           />
+          <p className="text-sm text-slate-400 leading-none">{watch('profile')?.length || 0}/255</p>
           {errors.profile && <p className="text-red-500 mt-0.5">{errors.profile.message}</p>}
         </div>
 
