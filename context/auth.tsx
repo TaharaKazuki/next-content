@@ -1,9 +1,9 @@
-import { onAuthStateChanged } from 'firebase/auth'
+import { onAuthStateChanged, User } from 'firebase/auth'
 import { auth } from '../firebase/client'
 import { createContext, ReactNode, FC, useEffect, useState, useContext } from 'react'
 
 type ContextType = {
-  isLoggedIn: boolean
+  fbUser: User | null | undefined
   isLoading: boolean
 }
 
@@ -12,22 +12,22 @@ type ProviderProps = {
 }
 
 const AuthContext = createContext<ContextType>({
-  isLoggedIn: false,
+  fbUser: undefined,
   isLoading: true,
 })
 
 export const AuthProvider: FC<ProviderProps> = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true)
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [fbUser, setFbUser] = useState<User | null>()
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
-      setIsLoggedIn(!!user)
+      setFbUser(user)
       setIsLoading(false)
     })
   }, [])
 
-  return <AuthContext.Provider value={{ isLoading, isLoggedIn }}>{children}</AuthContext.Provider>
+  return <AuthContext.Provider value={{ isLoading, fbUser }}>{children}</AuthContext.Provider>
 }
 
 export const useAuth = () => useContext(AuthContext)

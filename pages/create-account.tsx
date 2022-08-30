@@ -5,9 +5,11 @@ import { useForm } from 'react-hook-form'
 import classNames from 'classnames'
 import { User } from 'types/user'
 import { useAuth } from 'context/auth'
+import { doc, setDoc } from 'firebase/firestore'
+import { db } from '../firebase/client'
 
 const CreateAccount = () => {
-  const { isLoading, isLoggedIn } = useAuth()
+  const { isLoading, fbUser } = useAuth()
   const router = useRouter()
 
   const {
@@ -17,17 +19,21 @@ const CreateAccount = () => {
     watch,
   } = useForm<User>()
 
-  const submit = (data: User) => {
-    console.info(data)
-  }
-
   if (isLoading) {
     return null
   }
 
-  if (!isLoggedIn) {
+  if (!fbUser) {
     router.push('/login')
     return null
+  }
+
+  const submit = (data: User) => {
+    const ref = doc(db, `users/${fbUser.uid}`)
+    setDoc(ref, data).then(() => {
+      alert('ユーザーを作成しました')
+      router.push('/')
+    })
   }
 
   return (
