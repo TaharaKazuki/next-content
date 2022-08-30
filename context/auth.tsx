@@ -1,4 +1,4 @@
-import { onAuthStateChanged, User as FirebaseUser } from 'firebase/auth'
+import { onAuthStateChanged, Unsubscribe, User as FirebaseUser } from 'firebase/auth'
 import { auth, db } from '../firebase/client'
 import { createContext, ReactNode, FC, useEffect, useState, useContext } from 'react'
 import { User } from 'types/user'
@@ -26,16 +26,21 @@ export const AuthProvider: FC<ProviderProps> = ({ children }) => {
   const [fbUser, setFbUser] = useState<FirebaseUser | null>()
 
   useEffect(() => {
+    let unsubscribe: Unsubscribe
+
     onAuthStateChanged(auth, (resultUser) => {
+      unsubscribe?.()
       setFbUser(resultUser)
-      setIsLoading(false)
       if (resultUser) {
+        setIsLoading(true)
         const ref = doc(db, `users/${resultUser.uid}`)
-        onSnapshot(ref, (snap) => {
+        unsubscribe = onSnapshot(ref, (snap) => {
           setUser(snap.data() as User)
+          setIsLoading(false)
         })
       } else {
         setUser(null)
+        setIsLoading(false)
       }
     })
   }, [])
